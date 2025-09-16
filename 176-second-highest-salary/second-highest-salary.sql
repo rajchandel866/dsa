@@ -1,4 +1,5 @@
-select max(salary) AS SecondHighestSalary
-from Employee where salary <
-( select max(salary) 
-from Employee )
+select coalesce ( (select distinct e.salary
+from Employee as e
+order by salary desc
+limit 1 
+offset 1), null) as SecondHighestSalary
